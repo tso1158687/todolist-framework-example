@@ -1,62 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TodoService } from './todo.service';
+import { Todo } from './type/todo.type';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  // todoStore: TodoStore;
-  newTodoText = '';
+export class AppComponent implements OnInit {
+  todoList: Todo[] = [];
   newTodo = '';
-  addTodo() {
-    console.log(this.newTodo);
+
+  get remainingTodo(): number {
+    return this.todoList.filter((t) => !t.completed).length;
   }
 
-  // constructor(todoStore: TodoStore) {
-  // 	this.todoStore = todoStore;
-  // }
+  constructor(private todoService: TodoService) {}
 
-  // stopEditing(todo: Todo, editedTitle: string) {
-  // 	todo.title = editedTitle;
-  // 	todo.editing = false;
-  // }
+  ngOnInit(): void {
+    this.getTodoList();
+  }
 
-  // cancelEditingTodo(todo: Todo) {
-  // 	todo.editing = false;
-  // }
+  getTodoList(): void {
+    this.todoList = this.todoService.getTodoList();
+  }
 
-  // updateEditingTodo(todo: Todo, editedTitle: string) {
-  // 	editedTitle = editedTitle.trim();
-  // 	todo.editing = false;
+  addTodo(): void {
+    if (this.newTodo.length === 0) {
+      return;
+    }
 
-  // 	if (editedTitle.length === 0) {
-  // 		return this.todoStore.remove(todo);
-  // 	}
+    const newTodo: Todo = {
+      content: this.newTodo,
+      completed: false,
+      id: +new Date(),
+    };
 
-  // 	todo.title = editedTitle;
-  // }
+    this.todoList = [...this.todoList, newTodo];
+  }
 
-  // editTodo(todo: Todo) {
-  // 	todo.editing = true;
-  // }
+  toggleCompleteStatus(todo: Todo): void {
+    todo.completed = !todo.completed;
+  }
 
-  // removeCompleted() {
-  // 	this.todoStore.removeCompleted();
-  // }
+  removeTodo(todo: Todo): void {
+    this.todoList = this.todoList.filter((t) => t.id !== todo.id);
+  }
 
-  // toggleCompletion(todo: Todo) {
-  // 	this.todoStore.toggleCompletion(todo);
-  // }
-
-  // remove(todo: Todo){
-  // 	this.todoStore.remove(todo);
-  // }
-
-  // addTodo() {
-  // 	if (this.newTodoText.trim().length) {
-  // 		this.todoStore.add(this.newTodoText);
-  // 		this.newTodoText = '';
-  // 	}
-  // }
+  removeCompletedTodo(): void {
+    this.todoList = this.todoList.filter((t) => !t.completed);
+  }
 }
