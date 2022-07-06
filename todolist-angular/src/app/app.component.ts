@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
     };
 
     this.todoList = [...this.todoList, newTodo];
+    this.newTodo = '';
   }
 
   toggleCompleteStatus(todo: Todo): void {
