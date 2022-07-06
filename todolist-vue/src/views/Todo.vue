@@ -6,6 +6,20 @@
             <input type="text" class="new-todo" placeholder="What needs to be done?" v-model="newTodo"
                 @keydown.enter="addTodo()" />
         </header>
+        <section class="main">
+            <input id="toggle-all" class="toggle-all" type="checkbox" />
+            <ul class="todo-list">
+                <container v-for="todo in todoList " :key="todo.id">
+                    <li>
+                        <div class="view">
+                            <input class="toggle" type="checkbox" @click="toggleCompleteStatus(todo)" />
+                            <label :class="{ completed: todo.completed }">{{ todo.content }}</label>
+                            <button class="destroy" @click="removeTodo(todo)"></button>
+                        </div>
+                    </li>
+                </container>
+            </ul>
+        </section>
     </section>
 
     <ul>
@@ -80,6 +94,25 @@ import { Options, Vue } from 'vue-class-component'
 
             this.todoList = [...this.todoList, newTodo];
             this.newTodo = '';
+        },
+        toggleCompleteStatus(todo: {
+            content: string,
+            id: number,
+            completed: boolean,
+        }): void {
+            todo.completed = !todo.completed;
+        },
+
+        removeTodo(todo: {
+            content: string,
+            id: number,
+            completed: boolean,
+        }): void {
+            this.todoList = this.todoList.filter((t: {
+                content: string,
+                id: number,
+                completed: boolean,
+            }) => t.id !== todo.id);
         }
 
     },
@@ -96,6 +129,8 @@ export default class Todo extends Vue {
     arr!: string[]
     changeMsg!: Function
     addTodo!: Function
+    toggleCompleteStatus!: Function
+    removeTodo!: Function
     total!: number
     price!: number
     newTodo!: string
