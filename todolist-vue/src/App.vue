@@ -2,30 +2,22 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
-     <router-link to="/todo">About</router-link>
+    <router-link to="/todo">About</router-link>
   </div>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Anek+Malayalam&family=Noto+Sans+TC&display=swap");
+
+* {
+  font-family: "Anek Malayalam", "Noto Sans TC", sans-serif;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
