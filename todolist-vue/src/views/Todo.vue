@@ -25,16 +25,20 @@
             <button class="clear-completed" @click="removeCompletedTodo()">Clear completed</button>
         </footer>
     </section>
+    <Footer msg="Welcome to Your Vue.js + TypeScript App"></Footer>
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+import Footer from '@/components/Footer.vue' // @ is an alias to /src
 
 /* eslint-disable */
 @Options({
     props: {
         msg: String,
     },
-
+    components: {
+        Footer
+    },
     data() {
         return {
             newTodo: '',
