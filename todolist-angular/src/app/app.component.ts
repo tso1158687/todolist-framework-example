@@ -1,14 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { TodoService } from './todo.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { TodoService } from './service/todo.service';
 import { Todo } from './type/todo.type';
+import { PokemonService } from './service/pokemon.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports:[FormsModule,CommonModule],
+    standalone: true
 })
 export class AppComponent implements OnInit {
+  pokemonService=inject(PokemonService)
   todoList: Todo[] = [];
   newTodo = '';
 
@@ -20,6 +25,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTodoList();
+    this.pokemonService.getPokemonList().subscribe(e=>{
+      console.log('pika')
+      console.log(e)
+    })
   }
 
   getTodoList(): void {
