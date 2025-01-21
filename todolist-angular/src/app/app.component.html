@@ -1,34 +1,12 @@
 <section class="todoapp">
   <header class="header">
-    <h1>todos</h1>
-    <input
-      class="new-todo"
-      placeholder="What needs to be done?"
-      autofocus=""
-      (keyup.enter)="addTodo()"
-      [(ngModel)]="newTodo"
-    />
+    <h1 [routerLink]="['']">todos</h1>
+    <div class="link">
+      <a [routerLink]="['/todo']" routerLinkActive="router-link-active">Add</a>
+      <a [routerLink]="['/list']" routerLinkActive="router-link-active">List</a>
+    </div>
   </header>
-  <section class="main">
-    <input class="toggle-all" type="checkbox" />
-    <ul class="todo-list">
-      <ng-container *ngFor="let todo of todoList">
-        <li>
-          <div class="view">
-            <input
-              class="toggle"
-              type="checkbox"
-              (click)="toggleCompleteStatus(todo)"
-            />
-            <label [class.completed]="todo.completed">{{ todo.content }}</label>
-            <button class="destroy" (click)="removeTodo(todo)"></button>
-          </div>
-        </li>
-      </ng-container>
-    </ul>
-  </section>
-  <footer class="footer">
-    <span class="todo-count"><strong>{{remainingTodo}}</strong> left</span>
-    <button class="clear-completed" (click)="removeCompletedTodo()">Clear completed</button>
-  </footer>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
 </section>

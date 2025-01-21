@@ -9,7 +9,7 @@ export class PokemonService {
   pokemonApiUrl='https://pokeapi.co/api/v2/pokemon-color/8'
   constructor() { }
 
-  getPokemonList(){
+  getPokemonList():any{
     return this.http.get(this.pokemonApiUrl)
   }
 }

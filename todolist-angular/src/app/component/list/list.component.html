@@ -1,0 +1,24 @@
+<ul class="todo-list">
+  @for (todo of todoList(); track $index) {
+
+  <li>
+    <div class="view">
+      <input
+        class="toggle"
+        type="checkbox"
+        (click)="toggleCompleteStatus(todo)"
+      />
+      <label [class.completed]="todo.completed">{{ todo.content }}/{{todo.create|date}}</label>
+      <button class="destroy" (click)="removeTodo(todo)"></button>
+    </div>
+  </li>
+  }
+</ul>
+<footer class="footer">
+  <span class="todo-count"
+    ><strong>{{ remainingTodo() }}</strong> left</span
+  >
+  <button class="clear-completed" (click)="removeCompletedTodo()">
+    Clear completed
+  </button>
+</footer>
