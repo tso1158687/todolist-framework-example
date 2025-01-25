@@ -41,16 +41,14 @@ export default function RootLayout({
           <header className="header">
             <h1>todos</h1>
             <div className="link">
-              <a onClick={() => goToPage("todo")}></a>
-              <a onClick={() => goToPage("list")}></a>
-              {/* <a [routerLink]="['/todo']" routerLinkActive="router-link-active">Add</a> */}
-              {/* <a [routerLink]="['/list']" routerLinkActive="router-link-active">List</a> */}
+              <a onClick={() => goToPage("todo")}>Todo</a>
+              <a onClick={() => goToPage("list")}>List</a>
             </div>
           </header>
           <Provider store={store}>
             <div className="main">{children}</div>
           </Provider>
-          ,
+
         </section>
       </body>
     </html>
