@@ -1,8 +1,7 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { addTodo , toggleTodo} from "../todoSlice";
-
+import { addTodo, toggleTodo } from "../todoSlice";
 
 export default function Page() {
   const dispatch = useDispatch();
@@ -17,20 +16,28 @@ export default function Page() {
   };
 
   return (
-    <div>
-      <button onClick={handleAdd}>新增 Todo</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <input
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => handleToggle(todo.id)}
-            />
-            {todo.content}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <header className="header">
+      <input
+        className="new-todo"
+        placeholder="What needs to be done?"
+
+      />
+    </header>
+
+    // <div>
+    //   <button onClick={handleAdd}>新增 Todo</button>
+    //   <ul>
+    //     {todos.map((todo) => (
+    //       <li key={todo.id}>
+    //         <input
+    //           type="checkbox"
+    //           checked={todo.completed}
+    //           onChange={() => handleToggle(todo.id)}
+    //         />
+    //         {todo.content}
+    //       </li>
+    //     ))}
+    //   </ul>
+    // </div>
   );
 }
