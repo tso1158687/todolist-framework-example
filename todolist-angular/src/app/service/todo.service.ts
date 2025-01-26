@@ -1,8 +1,7 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Todo } from '../type/todo.type';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -12,9 +11,11 @@ export class TodoService {
   http = inject(HttpClient);
   url = 'http://localhost:3000/todo';
   todoList: WritableSignal<Todo[]> = signal([]);
-  todoList2:any
+  todoList2: any;
   constructor() {
-    this.todoList2=toSignal(this.http.get<Todo[]>(this.url),{initialValue:[]});
+    this.todoList2 = toSignal(this.http.get<Todo[]>(this.url), {
+      initialValue: [],
+    });
   }
 
   getTodoList(): any {
