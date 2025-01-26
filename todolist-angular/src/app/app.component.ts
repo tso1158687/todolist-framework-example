@@ -1,8 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TodoService } from './service/todo.service';
-import { Todo } from './type/todo.type';
 import { PokemonService } from './service/pokemon.service';
-import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({

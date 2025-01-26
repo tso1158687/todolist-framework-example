@@ -12,6 +12,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 export class ListComponent implements OnInit {
   todoService=inject(TodoService)
   todoList:WritableSignal<Todo[]> = signal([]);
+  todoList2=signal<Todo[]>([]);
   remainingTodo: Signal<number> = computed(
     ()=>this.todoList().filter((t) => !t.completed).length
   )
@@ -20,10 +21,18 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTodoList();
+
   }
 
   getTodoList(): void {
-    this.todoList = this.todoService.getTodoList();
+    this.todoList2=this.todoService.getTodoList();
+    // this.todoList2.
+
+    // this.todoList = this.todoService.getTodoList();
+    // this.todoList = this.todoService.getTodoList();
+    // this.todoService.getTodoList().subscribe((data) => {
+    //   this.todoList = data;
+    // });
   }
 
   toggleCompleteStatus(todo: Todo): void {

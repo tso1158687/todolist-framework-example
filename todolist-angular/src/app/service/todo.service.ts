@@ -1,27 +1,28 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Todo } from '../type/todo.type';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
-  todoList = signal<Todo[]>([
-    {
-      content: '吃飯',
-      id: 1,
-      create: new Date(2021, 8, 1),
-      completed: false,
-    },
-    {
-      content: '睡覺',
-      id: 2,
-      create: new Date(2023, 8, 2),
-      completed: false,
-    },
-  ]);
+  http = inject(HttpClient);
+  url = 'http://localhost:3000/todo';
+  todoList: WritableSignal<Todo[]> = signal([]);
+  todoList2:any
+  constructor() {
+    this.todoList2=toSignal(this.http.get<Todo[]>(this.url),{initialValue:[]});
+  }
 
-  getTodoList(): WritableSignal<Todo[]> {
-    return this.todoList;
+  getTodoList(): any {
+    return this.todoList2;
+  }
+
+  getTodoList2(): any {
+    return this.http.get(this.url);
   }
 
   addTodo(newTodo: string): void {
