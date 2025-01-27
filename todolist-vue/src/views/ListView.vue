@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { useTodoListStore } from '@/stores/todoList';
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { formateDate } from '../utilities/date';
 import { storeToRefs } from 'pinia';
 const store = useTodoListStore()
 const { todoList } = storeToRefs(store)
-const { removeTodo, removeCompletedTodo, toggleCompleteStatus } = useTodoListStore()
+const { removeTodo, removeCompletedTodo, toggleCompleteStatus, getTodoListData } = useTodoListStore()
 const remainingTodo = computed(() => {
     return todoList.value.filter((todo) => !todo.completed).length
 })
-
+onMounted(() => {
+    console.log('init')
+    getTodoListData().then(() => {
+        console.log('init success')
+    })
+})
 
 </script>
 
