@@ -1,8 +1,16 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import {
+  computed,
+  inject,
+  Injectable,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { Todo } from '../type/todo.type';
 import { HttpClient } from '@angular/common/http';
 
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,43 +18,57 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class TodoService {
   http = inject(HttpClient);
   url = 'http://localhost:3000/todo';
+
   todoList: WritableSignal<Todo[]> = signal([]);
-  todoList2: any;
-  constructor() {
-    this.todoList2 = toSignal(this.http.get<Todo[]>(this.url), {
-      initialValue: [],
-    });
+
+  getTodoList(): WritableSignal<Todo[]> {
+    return this.todoList;
   }
 
-  getTodoList(): any {
-    return this.todoList2;
+  getTodoListData(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.url);
   }
 
-  getTodoList2(): any {
-    return this.http.get(this.url);
+  addTodo(content: string): Observable<Todo> {
+    console.log(content);
+    return this.http
+      .post<Todo>(this.url, {
+        content,
+      })
+      .pipe(
+        tap((todo) => {
+          this.todoList.update((list) => [...list, todo]);
+        })
+      );
   }
 
-  addTodo(newTodo: string): void {
-    this.todoList.update((list) => [
-      ...list,
-      {
-        content: newTodo,
-        id: +new Date(),
-        create: new Date(),
-        completed: false,
-      },
-    ]);
+  toggleCompleteStatus(todo: Todo): Observable<Todo | null> {
+    const newTodo = { ...todo, completed: !todo.completed };
+    return this.http.post<Todo>(`${this.url}/update`, newTodo).pipe(
+      tap((todo) => {
+        this.todoList.update((list) =>
+          list.map((t) => (t.id === todo.id ? todo : t))
+        );
+      })
+    );
   }
 
-  toggleCompleteStatus(todo: Todo): void {
-    todo.completed = !todo.completed;
+  removeTodo(todo: Todo): Observable<boolean> {
+    return this.http.post<boolean>(`${this.url}/removeTodo`, todo).pipe(
+      tap((result) => {
+        if (result) {
+          console.log(result);
+          this.todoList.update((list) => list.filter((t) => t.id !== todo.id));
+        }
+      })
+    );
   }
 
-  removeTodo(todo: Todo): void {
-    this.todoList.update((list) => list.filter((t) => t.id !== todo.id));
-  }
-
-  removeCompletedTodo(): void {
-    this.todoList.update((list) => list.filter((t) => !t.completed));
+  removeCompletedTodo(): Observable<number> {
+    return this.http.post<number>(`${this.url}/removeCompletedTodo`, {}).pipe(
+      tap((count) => {
+        this.todoList.update((list) => list.filter((t) => !t.completed));
+      })
+    );
   }
 }

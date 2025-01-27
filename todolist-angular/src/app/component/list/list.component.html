@@ -1,5 +1,5 @@
 <ul class="todo-list">
-  @for (todo of todoList2(); track $index) {
+  @for (todo of todoList(); track $index) {
 
   <li>
     <div class="view">
@@ -8,7 +8,9 @@
         type="checkbox"
         (click)="toggleCompleteStatus(todo)"
       />
-      <label [class.completed]="todo.completed">{{ todo.content }}/{{todo.create|date}}</label>
+      <label [class.completed]="todo.completed"
+        >{{ todo.content }}/{{ todo.create | date }}</label
+      >
       <button class="destroy" (click)="removeTodo(todo)"></button>
     </div>
   </li>

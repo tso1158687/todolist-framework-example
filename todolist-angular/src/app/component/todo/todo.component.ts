@@ -13,7 +13,6 @@ export class TodoComponent {
 
   newTodo = '';
   addTodo() {
-    this.todoService.addTodo(this.newTodo);
-    this.newTodo = '';
+    this.todoService.addTodo(this.newTodo).subscribe(() => (this.newTodo = ''));
   }
 }

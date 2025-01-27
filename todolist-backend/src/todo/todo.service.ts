@@ -22,14 +22,32 @@ export class TodoService {
     return of(this.todoList);
   }
 
-  addTodo(newTodo: string): Observable<Todo[]> {
-    this.todoList.push({
-      content: newTodo,
+  getTodo(id: number): Observable<Todo | undefined> {
+    return of(this.todoList.find((t) => t.id === id));
+  }
+
+  addTodo(content: string): Observable<Todo> {
+    console.log('addTodo', content);
+    const newTodo: Todo = {
+      content,
       id: +new Date(),
       create: new Date(),
       completed: false,
-    });
-    return of(this.todoList);
+    };
+    this.todoList.push(newTodo);
+    return of(newTodo);
+  }
+
+  update(id: number, updateTodoDto: Todo): Observable<Todo | null> {
+    const todoIndex = this.todoList.findIndex((todo) => todo.id === id);
+    if (todoIndex > -1) {
+      this.todoList[todoIndex] = {
+        ...this.todoList[todoIndex],
+        ...updateTodoDto,
+      };
+      return of(this.todoList[todoIndex]);
+    }
+    return of(null); // 或者拋出錯誤
   }
 
   toggleCompleteStatus(todo: Todo): Observable<Todo[]> {
@@ -37,13 +55,16 @@ export class TodoService {
     return of(this.todoList);
   }
 
-  removeTodo(todo: Todo): Observable<Todo[]> {
+  removeTodo(todo: Todo): Observable<boolean> {
+    const initialLength = this.todoList.length;
     this.todoList = this.todoList.filter((t) => t.id !== todo.id);
-    return of(this.todoList);
+    const isRemoved = this.todoList.length !== initialLength;
+    return of(isRemoved);
   }
 
-  removeCompletedTodo(): Observable<Todo[]> {
+  removeCompletedTodo(): Observable<number> {
+    const initialLength = this.todoList.length;
     this.todoList = this.todoList.filter((t) => !t.completed);
-    return of(this.todoList);
+    return of(initialLength - this.todoList.length);
   }
 }
