@@ -1,10 +1,11 @@
 "use client";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../todoSlice";
+import { todosActions } from "../todoSlice";
 import { useState } from "react";
 
 export default function Page() {
-  const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dispatch = useDispatch<any>();
 
   const [todo, setTodo] = useState("");
 
@@ -19,7 +20,7 @@ export default function Page() {
         onKeyDown={(event) => {
           if (event.key === "Enter") {
             if (todo) {
-              dispatch(addTodo(todo));
+              dispatch(todosActions.addTodo(todo));
               setTodo("");
             }
           }
