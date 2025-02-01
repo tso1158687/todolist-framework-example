@@ -402,3 +402,15 @@ html .clear-completed:active {
 .flex-direction-column{
   flex-direction: column;
 }
+
+.classic-button{
+
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  appearance: none;
+  background-color: #40809d;
+  color: white;
+  margin: 10px 20px;
+  border-radius: 100px;
+}

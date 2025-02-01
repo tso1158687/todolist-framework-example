@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header flex flex-direction-column">
   <input
     class="new-todo"
     placeholder="Title"
@@ -6,9 +6,9 @@
     (keyup.enter)="addTodo()"
     [(ngModel)]="newTodo"
   />
-  👌 <input
+  <input
   class="new-todo-content"
-  type="text" placeholder="What needs to be done?" /> Date:
+  type="text" placeholder="What needs to be done?" />
   <input type="date" />
-  <button>Add</button>
+  <button class="classic-button">Add</button>
 </header>
