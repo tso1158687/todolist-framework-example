@@ -1,10 +1,14 @@
 <header class="header">
-
   <input
     class="new-todo"
-    placeholder="What needs to be done?"
+    placeholder="Title"
     autofocus=""
     (keyup.enter)="addTodo()"
     [(ngModel)]="newTodo"
   />
+  👌 <input
+  class="new-todo-content"
+  type="text" placeholder="What needs to be done?" /> Date:
+  <input type="date" />
+  <button>Add</button>
 </header>
