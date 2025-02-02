@@ -20,8 +20,11 @@ export class TodoService {
     return this.http.get<Todo[]>(this.url);
   }
 
+  getTodo(id: number): Observable<Todo | undefined> {
+    return this.http.get<Todo>(`${this.url}/${id}`);
+  }
+
   addTodo(todo: newTodo): Observable<Todo> {
-    // console.log(content);
     return this.http
       .post<Todo>(this.url, {
         todo,

@@ -417,3 +417,24 @@ html .clear-completed:active {
   margin: 10px 20px;
   border-radius: 100px;
 }
+
+.view2{
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.view2 .detail-title{
+  font-size: 20px;
+  font-weight: bold;
+  color: #40809d;
+  margin: 10px 0;
+}
+
+.view2 .detail-content{
+  font-size: 18px;
+}
+
+.view2 .detail-date{
+  font-size: 14px;
+}

@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Observable } from 'rxjs';
 import { newTodo, Todo } from 'src/types/todo.type';
@@ -12,8 +19,13 @@ export class TodoController {
     return this.todoService.getTodoList();
   }
 
+  @Get(':id')
+  getTodo(@Param('id', ParseIntPipe) id: number): Observable<Todo | undefined> {
+    return this.todoService.getTodo(id);
+  }
+
   @Post()
-  addTodo(@Body('content') newTodo: newTodo): Observable<Todo> {
+  addTodo(@Body('todo') newTodo: newTodo): Observable<Todo> {
     console.log('addTodo', newTodo);
     return this.todoService.addTodo(newTodo);
   }

@@ -4,16 +4,16 @@ import {
   inject,
   OnInit,
   Signal,
-  signal,
-  WritableSignal,
+
 } from '@angular/core';
 import { TodoService } from '../../service/todo.service';
 import { Todo } from '../../type/todo.type';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
-  imports: [DatePipe],
+  imports: [DatePipe,RouterLink],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })

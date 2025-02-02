@@ -8,7 +8,7 @@
         type="checkbox"
         (click)="toggleCompleteStatus(todo)"
       />
-      <label [class.completed]="todo.completed"
+      <label [class.completed]="todo.completed" [routerLink]="['/list', todo.id]"
         >{{ todo.content }}/{{
           todo.dueDate ? (todo.dueDate | date) : "No due date"
         }}</label

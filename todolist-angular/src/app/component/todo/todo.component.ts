@@ -6,11 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { TodoService } from '../../service/todo.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-todo',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.scss',
 })

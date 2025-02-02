@@ -1,0 +1,11 @@
+@if(todo$|async){
+<div class="todo-list">
+  <div class="view2">
+    <div class="detail-title">{{ todoS()?.title }}</div>
+    <div class="detail-content">{{ todoS()?.content }}</div>
+    <div class="detail-date">
+      {{ todoS()?.dueDate ? (todoS()?.dueDate | date) : "No due date" }}
+    </div>
+  </div>
+</div>
+}
