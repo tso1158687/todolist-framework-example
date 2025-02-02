@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Observable } from 'rxjs';
-import { Todo } from 'src/types/todo.type';
+import { newTodo, Todo } from 'src/types/todo.type';
 
 @Controller('todo')
 export class TodoController {
@@ -13,9 +13,9 @@ export class TodoController {
   }
 
   @Post()
-  addTodo(@Body('content') content: string): Observable<Todo> {
-    console.log('addTodo', content);
-    return this.todoService.addTodo(content);
+  addTodo(@Body('content') newTodo: newTodo): Observable<Todo> {
+    console.log('addTodo', newTodo);
+    return this.todoService.addTodo(newTodo);
   }
 
   @Post('update')

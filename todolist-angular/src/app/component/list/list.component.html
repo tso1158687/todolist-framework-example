@@ -9,7 +9,9 @@
         (click)="toggleCompleteStatus(todo)"
       />
       <label [class.completed]="todo.completed"
-        >{{ todo.content }}/{{ todo.create | date }}</label
+        >{{ todo.content }}/{{
+          todo.dueDate ? (todo.dueDate | date) : "No due date"
+        }}</label
       >
       <button class="destroy" (click)="removeTodo(todo)"></button>
     </div>
