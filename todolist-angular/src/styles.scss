@@ -404,7 +404,10 @@ html .clear-completed:active {
 }
 
 .classic-button{
-
+  &:disabled {
+    background-color: #e9ecef;
+    color: #ced4da;
+  }
   border: 0;
   font-size: 100%;
   vertical-align: baseline;

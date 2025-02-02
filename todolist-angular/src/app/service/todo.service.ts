@@ -1,10 +1,5 @@
-import {
-  inject,
-  Injectable,
-  signal,
-  WritableSignal,
-} from '@angular/core';
-import { Todo } from '../type/todo.type';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { newTodo, Todo } from '../type/todo.type';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
@@ -25,11 +20,11 @@ export class TodoService {
     return this.http.get<Todo[]>(this.url);
   }
 
-  addTodo(content: string): Observable<Todo> {
-    console.log(content);
+  addTodo(todo: newTodo): Observable<Todo> {
+    // console.log(content);
     return this.http
       .post<Todo>(this.url, {
-        content,
+        todo,
       })
       .pipe(
         tap((todo) => {

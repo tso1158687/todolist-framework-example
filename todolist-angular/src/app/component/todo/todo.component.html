@@ -1,14 +1,25 @@
-<header class="header flex flex-direction-column">
-  <input
-    class="new-todo"
-    placeholder="Title"
-    autofocus=""
-    (keyup.enter)="addTodo()"
-    [(ngModel)]="newTodo"
-  />
-  <input
-  class="new-todo-content"
-  type="text" placeholder="What needs to be done?" />
-  <input type="date" />
-  <button class="classic-button">Add</button>
-</header>
+<ng-container [formGroup]="todoForm">
+  <header class="header flex flex-direction-column">
+    <input
+      class="new-todo"
+      placeholder="Title"
+      autofocus=""
+      formControlName="title"
+    />
+    <input
+      class="new-todo-content"
+      type="text"
+      placeholder="What needs to be done?"
+      formControlName="content"
+    />
+    <input type="date" formControlName="date" />
+    <button
+      class="classic-button"
+      [disabled]="todoForm.invalid"
+      (click)="addTodo()"
+    >
+      Add
+    </button>
+  </header>
+  {{ todoForm.value | json }}
+</ng-container>
