@@ -405,10 +405,6 @@ html .clear-completed:active {
 }
 
 .classic-button{
-  &:disabled {
-    background-color: #e9ecef;
-    color: #ced4da;
-  }
   border: 0;
   font-size: 100%;
   vertical-align: baseline;
@@ -418,6 +414,12 @@ html .clear-completed:active {
   margin: 10px 20px;
   border-radius: 100px;
 }
+
+.classic-button:disabled {
+  background-color: #e9ecef;
+  color: #ced4da;
+}
+
 
 .view2{
   margin: 20px;
