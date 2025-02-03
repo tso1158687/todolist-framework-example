@@ -15,11 +15,22 @@ const router = createRouter({
       name: 'todo',
       component: () => import('../views/TodoView.vue'),
     },
+
     {
       path: '/list',
       name: 'list',
       component: () => import('../views/ListView.vue'),
     },
+    {
+      path: '/list/:id',
+      name: 'todo-detail',
+      component: () => import('../views/TodoDetailView.vue'),
+    },
+    // no match
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: { name: 'welcome' },
+    }
   ],
 })
 

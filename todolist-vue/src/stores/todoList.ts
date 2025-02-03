@@ -1,6 +1,6 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import type { Todo } from '@/types/todo.type'
+import type { newTodo, Todo } from '@/types/todo.type'
 import {
   getTodoListDataApi,
   addTodoApi,
@@ -26,7 +26,7 @@ export const useTodoListStore = defineStore('todo', () => {
     }
   }
 
-  async function addTodo(newTodo: string): Promise<void> {
+  async function addTodo(newTodo: newTodo): Promise<void> {
     try {
       const todo = await addTodoApi(newTodo)
       todoList.value.push(todo)

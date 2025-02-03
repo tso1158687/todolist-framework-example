@@ -23,8 +23,8 @@ export const routes: Routes = [
         (m) => m.TodoDetailComponent
       ),
   },
-//   {
-//     path: '**',
-//     redirectTo: '',
-//   },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];

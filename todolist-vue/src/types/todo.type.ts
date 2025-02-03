@@ -1,6 +1,10 @@
 export type Todo = {
-    content: string;
-    id: number;
-    create: Date;
-    completed: boolean;
-  };
+  title: string;
+  content: string;
+  id: number;
+  dueDate: Date | null;
+  createDate: Date;
+  completed: boolean;
+};
+
+export type newTodo = Omit<Todo, 'id' | 'createDate' | 'completed'>;

@@ -8,16 +8,32 @@ const addTodoToList = () => {
     if (newTodo.value.trim() === '') {
         return
     }
-    addTodo(newTodo.value)
+    // addTodo(newTodo.value)
     newTodo.value = ''
 }
 </script>
 
 <template>
-    <header class="header">
-        <input class="new-todo" placeholder="What needs to be done?" autofocus @keyup.enter="addTodoToList"
-            v-model="newTodo" />
-    </header>
+    <header class="header flex flex-direction-column">
+    <input
+      class="new-todo"
+      placeholder="Title"
+      autofocus
+
+    />
+    <input
+      class="new-todo-content"
+      type="text"
+      placeholder="What needs to be done?"
+    />
+    <input type="date"  />
+    <button
+      class="classic-button"
+      @click="addTodoToList"
+    >
+      Add
+    </button>
+  </header>
 
 
 </template>

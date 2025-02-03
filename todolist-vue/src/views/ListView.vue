@@ -23,7 +23,7 @@ onMounted(() => {
         <li v-for="todo in todoList" :key="todo.id">
             <div class="view">
                 <input class="toggle" type="checkbox" @click="toggleCompleteStatus(todo)" />
-                <label :class="{ completed: todo.completed }">{{ todo.content }}/{{ formateDate(todo.create) }}</label>
+                <label :class="{ completed: todo.completed }">{{ todo.content }}/{{ formateDate(todo.dueDate) }}</label>
                 <button class="destroy" @click="removeTodo(todo)"></button>
             </div>
         </li>

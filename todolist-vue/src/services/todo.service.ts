@@ -1,4 +1,4 @@
-import type { Todo } from '@/types/todo.type'
+import type { newTodo, Todo } from '@/types/todo.type'
 import axios from 'axios'
 const url = 'http://localhost:3000/todo'
 const apiClient = axios.create({
@@ -10,8 +10,13 @@ export async function getTodoListDataApi(): Promise<Todo[]> {
   return response.data
 }
 
-export async function addTodoApi(content: string): Promise<Todo> {
-  const response = await apiClient.post<Todo>('', { content })
+export async function getTodoApi(id: number): Promise<Todo | undefined> {
+  const response = await apiClient.get<Todo>(`/${id}`)
+  return response.data
+}
+
+export async function addTodoApi(todo: newTodo): Promise<Todo> {
+  const response = await apiClient.post<Todo>('', todo)
   return response.data
 }
 
