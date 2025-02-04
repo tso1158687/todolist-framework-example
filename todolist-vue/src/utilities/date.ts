@@ -1,4 +1,4 @@
-export function formateDate(date: string | Date | null): string {
+export function formateDate(date: string | Date | null | undefined): string {
   console.log(date)
   if (!date) return 'No due date'
   const standardDate = new Date(date)

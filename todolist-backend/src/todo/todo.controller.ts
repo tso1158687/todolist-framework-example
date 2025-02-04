@@ -25,7 +25,7 @@ export class TodoController {
   }
 
   @Post()
-  addTodo(@Body('todo') newTodo: newTodo): Observable<Todo> {
+  addTodo(@Body('') newTodo: newTodo): Observable<Todo> {
     console.log('addTodo', newTodo);
     return this.todoService.addTodo(newTodo);
   }

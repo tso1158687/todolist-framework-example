@@ -7,14 +7,13 @@ import {
   toggleCompleteStatusApi,
   removeTodoApi,
   removeCompletedTodoApi,
+  getTodoApi,
 } from '@/services/todo.service'
 
 export const useTodoListStore = defineStore('todo', () => {
   const todoList = ref<Todo[]>([])
+  const todo = ref<Todo | undefined>(undefined)
 
-  function getTodoList() {
-    return todoList
-  }
 
   async function getTodoListData() {
     try {
@@ -22,6 +21,16 @@ export const useTodoListStore = defineStore('todo', () => {
       todoList.value = data
     } catch (error) {
       console.error('Failed to fetch todos:', error)
+      // 這裡可以做一些錯誤處理邏輯
+    }
+  }
+
+  async function getTodoData(id: number): Promise<void> {
+    try {
+      const data = await getTodoApi(id)
+      todo.value = data
+    } catch (error) {
+      console.error('Failed to fetch todo:', error)
       // 這裡可以做一些錯誤處理邏輯
     }
   }
@@ -70,7 +79,8 @@ export const useTodoListStore = defineStore('todo', () => {
 
   return {
     todoList,
-    getTodoList,
+    todo,
+    getTodoData,
     addTodo,
     toggleCompleteStatus,
     removeTodo,

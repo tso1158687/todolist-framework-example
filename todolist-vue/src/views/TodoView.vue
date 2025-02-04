@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTodoListStore } from '@/stores/todoList';
-import { ref, watch, watchEffect, type Ref } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 const { addTodo } = useTodoListStore()
 
 const todoForm = ref({
@@ -9,56 +9,44 @@ const todoForm = ref({
   dueDate: ''
 })
 
-const count1= ref(0)
-const count2= ref(0)
+const isTitleValid = ref(false)
+const isDuleDateValid = ref(false)
+const isFormValid = computed(() => isTitleValid.value && isDuleDateValid.value)
 
-const isFormValid = ref(false)
-
-watch(todoForm.value, (newVal) => {
-  console.log(newVal.title)
-  // isFormValid.value = newVal.title.trim() !== '' && newVal.content.trim() !== ''
-})
-
-watchEffect(() => console.log('effect',count1.value))
-
-watch(count1,(oldValue, newValue) => {
-  console.log('watch')
-  console.log(oldValue, newValue)
+watchEffect(() => {
+  isTitleValid.value = todoForm.value.title.trim() !== ''
 })
 
 watchEffect(() => {
-  console.log('??')
-  console.log(todoForm.value)
+  isDuleDateValid.value = todoForm.value.dueDate.trim() !== ''
 })
 
-function add(origin:number) {
-  count2.value++
+const addTodoToList = () => {
+  addTodo({
+    title: todoForm.value.title,
+    content: todoForm.value.content,
+    dueDate: new Date(todoForm.value.dueDate)
+  }).then(() => {
+    clearForm()
+  }).catch((error:any) => {
+    console.error(error)
+  })
 
 }
 
-
-const newTodo = ref('')
-const addTodoToList = () => {
-  console.log(newTodo.value)
-  if (newTodo.value.trim() === '') {
-    return
-  }
-  // addTodo(newTodo.value)
-  newTodo.value = ''
+const clearForm = () => {
+  todoForm.value.title = ''
+  todoForm.value.content = ''
+  todoForm.value.dueDate = ''
 }
 </script>
 
 <template>
-  <button @click="add(count1)">count1</button>
-  <button @click="add(count2)">count2</button>
-{{ count1 }}/ {{ count2 }}
-  {{ todoForm }}
   <header class="header flex flex-direction-column">
     <input class="new-todo" placeholder="Title" autofocus v-model="todoForm.title" />
     <input class="new-todo-content" type="text" placeholder="What needs to be done?" v-model="todoForm.content" />
     <input type="date" v-model="todoForm.dueDate" />
-    <button class="classic-button" @click="addTodoToList"
-    :disabled="true">
+    <button class="classic-button" @click="addTodoToList" :disabled="!isFormValid">
       Add
     </button>
   </header>
