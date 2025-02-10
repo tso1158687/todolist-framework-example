@@ -9,7 +9,9 @@ import { RouterLink, RouterView } from 'vue-router'
     <header class="header">
       <h1>todos</h1>
       <div class="link">
-        <RouterLink to="/todo">Add</RouterLink>
+        <RouterLink to="/todo"
+
+        >Add</RouterLink>
         <RouterLink to="/list">List</RouterLink>
 
       </div>
